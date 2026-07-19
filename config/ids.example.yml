@@ -1,0 +1,5 @@
+# Copy this file to `ids.yml` and list the Telegram user IDs allowed to use the bot.
+# Find your numeric ID by messaging a bot like @userinfobot.
+allowed:
+  - 111111111
+  - 222222222

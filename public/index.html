@@ -1,0 +1,143 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Matt77 - AI Assistant on Telegram</title>
+    <meta name="description" content="Matt77 is a powerful AI assistant on Telegram that generates images, videos, manages your calendar, and more.">
+    <script src="https://cdn.tailwindcss.com"></script>
+    <script>
+        tailwind.config = {
+            darkMode: 'class',
+        }
+        if (window.matchMedia('(prefers-color-scheme: dark)').matches) {
+            document.documentElement.classList.add('dark');
+        }
+        window.matchMedia('(prefers-color-scheme: dark)').addEventListener('change', e => {
+            document.documentElement.classList.toggle('dark', e.matches);
+        });
+    </script>
+    <link rel="stylesheet" href="styles.css">
+</head>
+<body class="bg-white dark:bg-gray-950 text-gray-900 dark:text-gray-100">
+
+    <!-- Nav -->
+    <nav class="border-b border-gray-200 dark:border-gray-800">
+        <div class="max-w-6xl mx-auto px-6 py-4 flex items-center justify-between">
+            <a href="index.html" class="text-xl font-bold text-blue-600 dark:text-blue-400">Matt77</a>
+            <div class="flex gap-6 text-sm">
+                <a href="docs.html" class="text-gray-600 dark:text-gray-400 hover:text-gray-900 dark:hover:text-white">Docs</a>
+                <a href="privacy.html" class="text-gray-600 dark:text-gray-400 hover:text-gray-900 dark:hover:text-white">Privacy</a>
+                <a href="terms.html" class="text-gray-600 dark:text-gray-400 hover:text-gray-900 dark:hover:text-white">Terms</a>
+            </div>
+        </div>
+    </nav>
+
+    <!-- Hero -->
+    <section class="max-w-6xl mx-auto px-6 py-24 text-center">
+        <h1 class="text-5xl font-bold tracking-tight sm:text-6xl">Your AI assistant,<br>right in Telegram</h1>
+        <p class="mt-6 text-lg text-gray-600 dark:text-gray-400 max-w-2xl mx-auto">Matt77 brings the power of AI to your Telegram chats. Generate images, create videos, manage your calendar, transcribe audio, and much more — all through natural conversation.</p>
+        <div class="mt-10 flex gap-4 justify-center">
+            <a href="https://t.me/Matt77Bot" class="inline-block bg-blue-600 hover:bg-blue-700 text-white font-medium px-8 py-3 rounded-lg text-sm">Open in Telegram</a>
+            <a href="docs.html" class="inline-block border border-gray-300 dark:border-gray-700 hover:border-gray-400 dark:hover:border-gray-500 font-medium px-8 py-3 rounded-lg text-sm">Read the docs</a>
+        </div>
+    </section>
+
+    <!-- Features -->
+    <section class="border-t border-gray-200 dark:border-gray-800 bg-gray-50 dark:bg-gray-900">
+        <div class="max-w-6xl mx-auto px-6 py-20">
+            <h2 class="text-3xl font-bold text-center">Everything you need</h2>
+            <p class="mt-3 text-center text-gray-600 dark:text-gray-400">One bot. Countless capabilities.</p>
+            <div class="mt-14 grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-8">
+
+                <!-- AI Chat -->
+                <div class="border border-gray-200 dark:border-gray-800 rounded-xl p-6 bg-white dark:bg-gray-950">
+                    <div class="text-2xl mb-3">&#128172;</div>
+                    <h3 class="font-semibold text-lg">AI Chat</h3>
+                    <p class="mt-2 text-sm text-gray-600 dark:text-gray-400">Have intelligent conversations powered by GPT-4 and other models. Switch models on the fly to match your needs.</p>
+                </div>
+
+                <!-- Image Generation -->
+                <div class="border border-gray-200 dark:border-gray-800 rounded-xl p-6 bg-white dark:bg-gray-950">
+                    <div class="text-2xl mb-3">&#127912;</div>
+                    <h3 class="font-semibold text-lg">Image Generation</h3>
+                    <p class="mt-2 text-sm text-gray-600 dark:text-gray-400">Generate and edit images using OpenAI's gpt-image-1 model. Describe what you want and get it instantly.</p>
+                </div>
+
+                <!-- Video Generation -->
+                <div class="border border-gray-200 dark:border-gray-800 rounded-xl p-6 bg-white dark:bg-gray-950">
+                    <div class="text-2xl mb-3">&#127909;</div>
+                    <h3 class="font-semibold text-lg">Video Generation</h3>
+                    <p class="mt-2 text-sm text-gray-600 dark:text-gray-400">Create videos from text prompts or images using Sora. Choose duration and resolution to fit your vision.</p>
+                </div>
+
+                <!-- Internet Search -->
+                <div class="border border-gray-200 dark:border-gray-800 rounded-xl p-6 bg-white dark:bg-gray-950">
+                    <div class="text-2xl mb-3">&#128270;</div>
+                    <h3 class="font-semibold text-lg">Internet Search</h3>
+                    <p class="mt-2 text-sm text-gray-600 dark:text-gray-400">Get up-to-date information from the web. Ask about news, trends, or anything that needs current data.</p>
+                </div>
+
+                <!-- Voice -->
+                <div class="border border-gray-200 dark:border-gray-800 rounded-xl p-6 bg-white dark:bg-gray-950">
+                    <div class="text-2xl mb-3">&#127908;</div>
+                    <h3 class="font-semibold text-lg">Voice Transcription</h3>
+                    <p class="mt-2 text-sm text-gray-600 dark:text-gray-400">Send voice messages or audio files and get accurate transcriptions powered by Whisper.</p>
+                </div>
+
+                <!-- Calendar -->
+                <div class="border border-gray-200 dark:border-gray-800 rounded-xl p-6 bg-white dark:bg-gray-950">
+                    <div class="text-2xl mb-3">&#128197;</div>
+                    <h3 class="font-semibold text-lg">Calendar Management</h3>
+                    <p class="mt-2 text-sm text-gray-600 dark:text-gray-400">Create, view, update, and delete Google Calendar events through natural conversation.</p>
+                </div>
+
+                <!-- Multi-step Agent -->
+                <div class="border border-gray-200 dark:border-gray-800 rounded-xl p-6 bg-white dark:bg-gray-950">
+                    <div class="text-2xl mb-3">&#9889;</div>
+                    <h3 class="font-semibold text-lg">Smart Agent</h3>
+                    <p class="mt-2 text-sm text-gray-600 dark:text-gray-400">Matt77 chains multiple actions automatically. Ask complex tasks and watch it plan, execute, and deliver results.</p>
+                </div>
+
+            </div>
+        </div>
+    </section>
+
+    <!-- How it works -->
+    <section class="border-t border-gray-200 dark:border-gray-800">
+        <div class="max-w-6xl mx-auto px-6 py-20">
+            <h2 class="text-3xl font-bold text-center">How it works</h2>
+            <div class="mt-14 grid grid-cols-1 sm:grid-cols-3 gap-10 text-center">
+                <div>
+                    <div class="inline-flex items-center justify-center w-12 h-12 rounded-full border-2 border-blue-600 dark:border-blue-400 text-blue-600 dark:text-blue-400 font-bold text-lg mb-4">1</div>
+                    <h3 class="font-semibold text-lg">Add the bot</h3>
+                    <p class="mt-2 text-sm text-gray-600 dark:text-gray-400">Search for Matt77 on Telegram or click the link to start a chat.</p>
+                </div>
+                <div>
+                    <div class="inline-flex items-center justify-center w-12 h-12 rounded-full border-2 border-blue-600 dark:border-blue-400 text-blue-600 dark:text-blue-400 font-bold text-lg mb-4">2</div>
+                    <h3 class="font-semibold text-lg">Get access</h3>
+                    <p class="mt-2 text-sm text-gray-600 dark:text-gray-400">Send /start to initialize your session. The bot will authenticate you automatically.</p>
+                </div>
+                <div>
+                    <div class="inline-flex items-center justify-center w-12 h-12 rounded-full border-2 border-blue-600 dark:border-blue-400 text-blue-600 dark:text-blue-400 font-bold text-lg mb-4">3</div>
+                    <h3 class="font-semibold text-lg">Start chatting</h3>
+                    <p class="mt-2 text-sm text-gray-600 dark:text-gray-400">Ask questions, generate content, manage your calendar — Matt77 handles it all.</p>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Footer -->
+    <footer class="border-t border-gray-200 dark:border-gray-800 bg-gray-50 dark:bg-gray-900">
+        <div class="max-w-6xl mx-auto px-6 py-10 flex flex-col sm:flex-row items-center justify-between gap-4 text-sm text-gray-500 dark:text-gray-500">
+            <p>&copy; 2025 Matt77. All rights reserved.</p>
+            <div class="flex gap-6">
+                <a href="docs.html" class="hover:text-gray-900 dark:hover:text-white">Docs</a>
+                <a href="privacy.html" class="hover:text-gray-900 dark:hover:text-white">Privacy</a>
+                <a href="terms.html" class="hover:text-gray-900 dark:hover:text-white">Terms</a>
+            </div>
+        </div>
+    </footer>
+
+</body>
+</html>

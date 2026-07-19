@@ -1,0 +1,135 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Privacy Policy - Matt77</title>
+    <meta name="description" content="Privacy Policy for the Matt77 Telegram AI assistant.">
+    <script src="https://cdn.tailwindcss.com"></script>
+    <script>
+        tailwind.config = { darkMode: 'class' }
+        if (window.matchMedia('(prefers-color-scheme: dark)').matches) {
+            document.documentElement.classList.add('dark');
+        }
+        window.matchMedia('(prefers-color-scheme: dark)').addEventListener('change', e => {
+            document.documentElement.classList.toggle('dark', e.matches);
+        });
+    </script>
+    <link rel="stylesheet" href="styles.css">
+</head>
+<body class="bg-white dark:bg-gray-950 text-gray-900 dark:text-gray-100">
+
+    <!-- Nav -->
+    <nav class="border-b border-gray-200 dark:border-gray-800">
+        <div class="max-w-6xl mx-auto px-6 py-4 flex items-center justify-between">
+            <a href="index.html" class="text-xl font-bold text-blue-600 dark:text-blue-400">Matt77</a>
+            <div class="flex gap-6 text-sm">
+                <a href="docs.html" class="text-gray-600 dark:text-gray-400 hover:text-gray-900 dark:hover:text-white">Docs</a>
+                <a href="privacy.html" class="text-gray-900 dark:text-white font-medium">Privacy</a>
+                <a href="terms.html" class="text-gray-600 dark:text-gray-400 hover:text-gray-900 dark:hover:text-white">Terms</a>
+            </div>
+        </div>
+    </nav>
+
+    <div class="max-w-4xl mx-auto px-6 py-16">
+        <h1 class="text-4xl font-bold">Privacy Policy</h1>
+        <p class="mt-4 text-sm text-gray-500 dark:text-gray-500">Last updated: February 2025</p>
+
+        <div class="mt-10 space-y-10 text-sm leading-relaxed text-gray-700 dark:text-gray-300">
+
+            <section>
+                <h2 class="text-xl font-bold text-gray-900 dark:text-gray-100">1. Information We Collect</h2>
+                <div class="mt-3 space-y-2">
+                    <p>When you interact with Matt77, we collect the following information:</p>
+                    <ul class="space-y-2 pl-2">
+                        <li class="flex gap-2"><span class="text-gray-400">&bull;</span><span><strong>Telegram User ID</strong> — Your unique Telegram identifier, used to manage your session and authenticate requests.</span></li>
+                        <li class="flex gap-2"><span class="text-gray-400">&bull;</span><span><strong>Message Content</strong> — Text messages, voice messages, audio files, and images you send to the bot. These are processed by AI models to generate responses.</span></li>
+                        <li class="flex gap-2"><span class="text-gray-400">&bull;</span><span><strong>Session Data</strong> — Conversation context, token usage counters, and model preferences stored for the duration of your session.</span></li>
+                        <li class="flex gap-2"><span class="text-gray-400">&bull;</span><span><strong>Name</strong> — Your first and last name as provided by Telegram, used for personalized greetings.</span></li>
+                    </ul>
+                </div>
+            </section>
+
+            <section>
+                <h2 class="text-xl font-bold text-gray-900 dark:text-gray-100">2. How We Use Your Information</h2>
+                <div class="mt-3 space-y-2">
+                    <ul class="space-y-2 pl-2">
+                        <li class="flex gap-2"><span class="text-gray-400">&bull;</span><span>Processing your messages through AI models to generate responses, images, videos, and transcriptions.</span></li>
+                        <li class="flex gap-2"><span class="text-gray-400">&bull;</span><span>Maintaining conversation context within your session to provide coherent multi-turn conversations.</span></li>
+                        <li class="flex gap-2"><span class="text-gray-400">&bull;</span><span>Managing your token usage and session preferences.</span></li>
+                        <li class="flex gap-2"><span class="text-gray-400">&bull;</span><span>Managing calendar events on your behalf when you use the calendar feature.</span></li>
+                    </ul>
+                </div>
+            </section>
+
+            <section>
+                <h2 class="text-xl font-bold text-gray-900 dark:text-gray-100">3. Third-Party Services</h2>
+                <div class="mt-3 space-y-2">
+                    <p>Matt77 relies on the following third-party services to function:</p>
+                    <ul class="space-y-2 pl-2">
+                        <li class="flex gap-2"><span class="text-gray-400">&bull;</span><span><strong>OpenAI API</strong> — Your messages are sent to OpenAI's API for processing. OpenAI's <a href="https://openai.com/policies/privacy-policy" class="text-blue-600 dark:text-blue-400 underline">privacy policy</a> applies to this processing.</span></li>
+                        <li class="flex gap-2"><span class="text-gray-400">&bull;</span><span><strong>Google Calendar API</strong> — If you use the calendar feature, event data is managed through Google's API. Google's <a href="https://policies.google.com/privacy" class="text-blue-600 dark:text-blue-400 underline">privacy policy</a> applies.</span></li>
+                        <li class="flex gap-2"><span class="text-gray-400">&bull;</span><span><strong>Amazon DynamoDB</strong> — Session data is stored in AWS DynamoDB. Amazon's <a href="https://aws.amazon.com/privacy/" class="text-blue-600 dark:text-blue-400 underline">privacy policy</a> applies.</span></li>
+                        <li class="flex gap-2"><span class="text-gray-400">&bull;</span><span><strong>Telegram Bot API</strong> — All interactions occur through Telegram's platform. Telegram's <a href="https://telegram.org/privacy" class="text-blue-600 dark:text-blue-400 underline">privacy policy</a> applies.</span></li>
+                    </ul>
+                </div>
+            </section>
+
+            <section>
+                <h2 class="text-xl font-bold text-gray-900 dark:text-gray-100">4. Data Storage &amp; Retention</h2>
+                <div class="mt-3 space-y-2">
+                    <p>Session data (conversation context, token usage, preferences) is stored in DynamoDB and persists for the duration of your active session. Temporary files (audio downloads, generated files) are deleted immediately after processing.</p>
+                    <p>We do not permanently store your message content beyond the active session context. You can clear your session data at any time using the <code class="bg-gray-100 dark:bg-gray-800 px-1.5 py-0.5 rounded text-xs">/clearcontext</code> command.</p>
+                </div>
+            </section>
+
+            <section>
+                <h2 class="text-xl font-bold text-gray-900 dark:text-gray-100">5. Data Security</h2>
+                <div class="mt-3 space-y-2">
+                    <p>We implement reasonable security measures to protect your data, including encrypted connections to all third-party services. However, no method of electronic transmission or storage is 100% secure.</p>
+                </div>
+            </section>
+
+            <section>
+                <h2 class="text-xl font-bold text-gray-900 dark:text-gray-100">6. Your Rights</h2>
+                <div class="mt-3 space-y-2">
+                    <p>You have the right to:</p>
+                    <ul class="space-y-2 pl-2">
+                        <li class="flex gap-2"><span class="text-gray-400">&bull;</span><span>Clear your conversation data at any time using <code class="bg-gray-100 dark:bg-gray-800 px-1.5 py-0.5 rounded text-xs">/clearcontext</code>.</span></li>
+                        <li class="flex gap-2"><span class="text-gray-400">&bull;</span><span>Stop using the bot at any time by blocking it on Telegram.</span></li>
+                        <li class="flex gap-2"><span class="text-gray-400">&bull;</span><span>Request deletion of your stored data by contacting us.</span></li>
+                    </ul>
+                </div>
+            </section>
+
+            <section>
+                <h2 class="text-xl font-bold text-gray-900 dark:text-gray-100">7. Changes to This Policy</h2>
+                <div class="mt-3 space-y-2">
+                    <p>We may update this Privacy Policy from time to time. Changes will be reflected on this page with an updated revision date. Continued use of Matt77 after changes constitutes acceptance of the updated policy.</p>
+                </div>
+            </section>
+
+            <section>
+                <h2 class="text-xl font-bold text-gray-900 dark:text-gray-100">8. Contact</h2>
+                <div class="mt-3">
+                    <p>If you have questions about this Privacy Policy or your data, please reach out through our Telegram bot.</p>
+                </div>
+            </section>
+
+        </div>
+    </div>
+
+    <!-- Footer -->
+    <footer class="border-t border-gray-200 dark:border-gray-800 bg-gray-50 dark:bg-gray-900">
+        <div class="max-w-6xl mx-auto px-6 py-10 flex flex-col sm:flex-row items-center justify-between gap-4 text-sm text-gray-500 dark:text-gray-500">
+            <p>&copy; 2025 Matt77. All rights reserved.</p>
+            <div class="flex gap-6">
+                <a href="index.html" class="hover:text-gray-900 dark:hover:text-white">Home</a>
+                <a href="docs.html" class="hover:text-gray-900 dark:hover:text-white">Docs</a>
+                <a href="terms.html" class="hover:text-gray-900 dark:hover:text-white">Terms</a>
+            </div>
+        </div>
+    </footer>
+
+</body>
+</html>

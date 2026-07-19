@@ -1,0 +1,187 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Documentation - Matt77</title>
+    <meta name="description" content="Learn how to use Matt77 — commands, features, and configuration.">
+    <script src="https://cdn.tailwindcss.com"></script>
+    <script>
+        tailwind.config = { darkMode: 'class' }
+        if (window.matchMedia('(prefers-color-scheme: dark)').matches) {
+            document.documentElement.classList.add('dark');
+        }
+        window.matchMedia('(prefers-color-scheme: dark)').addEventListener('change', e => {
+            document.documentElement.classList.toggle('dark', e.matches);
+        });
+    </script>
+    <link rel="stylesheet" href="styles.css">
+</head>
+<body class="bg-white dark:bg-gray-950 text-gray-900 dark:text-gray-100">
+
+    <!-- Nav -->
+    <nav class="border-b border-gray-200 dark:border-gray-800">
+        <div class="max-w-6xl mx-auto px-6 py-4 flex items-center justify-between">
+            <a href="index.html" class="text-xl font-bold text-blue-600 dark:text-blue-400">Matt77</a>
+            <div class="flex gap-6 text-sm">
+                <a href="docs.html" class="text-gray-900 dark:text-white font-medium">Docs</a>
+                <a href="privacy.html" class="text-gray-600 dark:text-gray-400 hover:text-gray-900 dark:hover:text-white">Privacy</a>
+                <a href="terms.html" class="text-gray-600 dark:text-gray-400 hover:text-gray-900 dark:hover:text-white">Terms</a>
+            </div>
+        </div>
+    </nav>
+
+    <div class="max-w-4xl mx-auto px-6 py-16">
+        <h1 class="text-4xl font-bold">Documentation</h1>
+        <p class="mt-4 text-gray-600 dark:text-gray-400">Everything you need to know to get the most out of Matt77.</p>
+
+        <!-- Getting Started -->
+        <section class="mt-14">
+            <h2 class="text-2xl font-bold" id="getting-started">Getting Started</h2>
+            <div class="mt-4 text-sm leading-relaxed text-gray-700 dark:text-gray-300 space-y-3">
+                <p>Matt77 is a Telegram bot powered by OpenAI's latest models. To get started:</p>
+                <ol class="list-decimal list-inside space-y-2 pl-2">
+                    <li>Open Telegram and search for <strong>Matt77</strong>, or use the direct link.</li>
+                    <li>Send <code class="bg-gray-100 dark:bg-gray-800 px-1.5 py-0.5 rounded text-xs">/start</code> to initialize your session.</li>
+                    <li>Start sending messages. Matt77 will respond with AI-generated answers.</li>
+                </ol>
+                <p>Your session includes a token allocation. Use <code class="bg-gray-100 dark:bg-gray-800 px-1.5 py-0.5 rounded text-xs">/stats</code> to check your remaining balance.</p>
+            </div>
+        </section>
+
+        <!-- Commands -->
+        <section class="mt-14">
+            <h2 class="text-2xl font-bold" id="commands">Commands</h2>
+            <div class="mt-4 overflow-x-auto">
+                <table class="w-full text-sm border border-gray-200 dark:border-gray-800 rounded-lg overflow-hidden">
+                    <thead class="bg-gray-50 dark:bg-gray-900">
+                        <tr>
+                            <th class="text-left px-4 py-3 font-medium">Command</th>
+                            <th class="text-left px-4 py-3 font-medium">Description</th>
+                        </tr>
+                    </thead>
+                    <tbody class="divide-y divide-gray-200 dark:divide-gray-800">
+                        <tr>
+                            <td class="px-4 py-3"><code class="text-blue-600 dark:text-blue-400">/start</code></td>
+                            <td class="px-4 py-3 text-gray-600 dark:text-gray-400">Begin a new session with the bot</td>
+                        </tr>
+                        <tr>
+                            <td class="px-4 py-3"><code class="text-blue-600 dark:text-blue-400">/stats</code></td>
+                            <td class="px-4 py-3 text-gray-600 dark:text-gray-400">Check your remaining token balance</td>
+                        </tr>
+                        <tr>
+                            <td class="px-4 py-3"><code class="text-blue-600 dark:text-blue-400">/clearcontext</code></td>
+                            <td class="px-4 py-3 text-gray-600 dark:text-gray-400">Reset conversation history to start fresh</td>
+                        </tr>
+                        <tr>
+                            <td class="px-4 py-3"><code class="text-blue-600 dark:text-blue-400">/getgptmodel</code></td>
+                            <td class="px-4 py-3 text-gray-600 dark:text-gray-400">Show which AI model is currently active</td>
+                        </tr>
+                        <tr>
+                            <td class="px-4 py-3"><code class="text-blue-600 dark:text-blue-400">/setgptmodel</code></td>
+                            <td class="px-4 py-3 text-gray-600 dark:text-gray-400">Switch between available AI models</td>
+                        </tr>
+                    </tbody>
+                </table>
+            </div>
+        </section>
+
+        <!-- AI Chat -->
+        <section class="mt-14">
+            <h2 class="text-2xl font-bold" id="ai-chat">AI Chat</h2>
+            <div class="mt-4 text-sm leading-relaxed text-gray-700 dark:text-gray-300 space-y-3">
+                <p>Simply send a text message to Matt77 and it will respond using the currently selected AI model. The bot maintains conversation context across messages within your session, allowing for natural multi-turn conversations.</p>
+                <p>To reset the conversation context and start a new topic, use <code class="bg-gray-100 dark:bg-gray-800 px-1.5 py-0.5 rounded text-xs">/clearcontext</code>.</p>
+                <p>Matt77 acts as an agent — it can autonomously chain multiple tool calls to complete complex tasks. For example, asking "Check my calendar for tomorrow and write me a summary" will trigger multiple steps automatically.</p>
+            </div>
+        </section>
+
+        <!-- Image Generation -->
+        <section class="mt-14">
+            <h2 class="text-2xl font-bold" id="images">Image Generation &amp; Editing</h2>
+            <div class="mt-4 text-sm leading-relaxed text-gray-700 dark:text-gray-300 space-y-3">
+                <p>Ask Matt77 to generate images and it will use OpenAI's gpt-image-1 model to create them. Simply describe what you want:</p>
+                <div class="bg-gray-50 dark:bg-gray-900 border border-gray-200 dark:border-gray-800 rounded-lg p-4 font-mono text-xs">
+                    "Generate an image of a sunset over a mountain lake"
+                </div>
+                <p>To edit an existing image, send the image as a photo with a caption describing the desired changes. The bot will use the image as a base and apply your edits.</p>
+            </div>
+        </section>
+
+        <!-- Internet Search -->
+        <section class="mt-14">
+            <h2 class="text-2xl font-bold" id="search">Internet Search</h2>
+            <div class="mt-4 text-sm leading-relaxed text-gray-700 dark:text-gray-300 space-y-3">
+                <p>Matt77 can search the internet for up-to-date information. When you ask about recent events, news, or anything that requires current data, the bot will automatically search the web and include relevant sources in its response.</p>
+                <div class="bg-gray-50 dark:bg-gray-900 border border-gray-200 dark:border-gray-800 rounded-lg p-4 font-mono text-xs">
+                    "What are the latest developments in AI?"
+                </div>
+                <p>You can also ask it to research specific topics, compare products, look up facts, or find current prices and availability. The bot returns answers with source links so you can verify the information.</p>
+            </div>
+        </section>
+
+        <!-- Video Generation -->
+        <section class="mt-14">
+            <h2 class="text-2xl font-bold" id="video">Video Generation</h2>
+            <div class="mt-4 text-sm leading-relaxed text-gray-700 dark:text-gray-300 space-y-3">
+                <p>Matt77 can generate videos using OpenAI's Sora model. Ask for a video and the bot will start the generation process:</p>
+                <div class="bg-gray-50 dark:bg-gray-900 border border-gray-200 dark:border-gray-800 rounded-lg p-4 font-mono text-xs">
+                    "Create a 4-second video of waves crashing on a beach"
+                </div>
+                <p>Videos can be 4, 8, or 12 seconds long. You can also generate videos from an image by sending a photo with a prompt describing the desired animation.</p>
+                <p>Video generation takes time. The bot will give you a request ID that you can use to check the status of your video at any time.</p>
+            </div>
+        </section>
+
+        <!-- Voice -->
+        <section class="mt-14">
+            <h2 class="text-2xl font-bold" id="voice">Voice &amp; Audio</h2>
+            <div class="mt-4 text-sm leading-relaxed text-gray-700 dark:text-gray-300 space-y-3">
+                <p>Send a voice message or audio file to Matt77 and it will transcribe the content using OpenAI's Whisper model. You can optionally add a caption to provide context for the transcription.</p>
+                <p>Supported formats include all common audio formats that Telegram supports (OGG, MP3, WAV, etc.).</p>
+            </div>
+        </section>
+
+        <!-- Calendar -->
+        <section class="mt-14">
+            <h2 class="text-2xl font-bold" id="calendar">Calendar Management</h2>
+            <div class="mt-4 text-sm leading-relaxed text-gray-700 dark:text-gray-300 space-y-3">
+                <p>Matt77 can manage Google Calendar events through natural language. Examples:</p>
+                <ul class="space-y-2 pl-2">
+                    <li class="flex gap-2">
+                        <span class="text-gray-400">&bull;</span>
+                        <span>"Schedule a team meeting tomorrow at 2pm for 1 hour"</span>
+                    </li>
+                    <li class="flex gap-2">
+                        <span class="text-gray-400">&bull;</span>
+                        <span>"What's on my calendar this week?"</span>
+                    </li>
+                    <li class="flex gap-2">
+                        <span class="text-gray-400">&bull;</span>
+                        <span>"Move the 2pm meeting to 3pm"</span>
+                    </li>
+                    <li class="flex gap-2">
+                        <span class="text-gray-400">&bull;</span>
+                        <span>"Cancel the team meeting"</span>
+                    </li>
+                </ul>
+                <p>The bot supports full CRUD operations: creating, listing, updating, and deleting events.</p>
+            </div>
+        </section>
+
+    </div>
+
+    <!-- Footer -->
+    <footer class="border-t border-gray-200 dark:border-gray-800 bg-gray-50 dark:bg-gray-900">
+        <div class="max-w-6xl mx-auto px-6 py-10 flex flex-col sm:flex-row items-center justify-between gap-4 text-sm text-gray-500 dark:text-gray-500">
+            <p>&copy; 2025 Matt77. All rights reserved.</p>
+            <div class="flex gap-6">
+                <a href="index.html" class="hover:text-gray-900 dark:hover:text-white">Home</a>
+                <a href="privacy.html" class="hover:text-gray-900 dark:hover:text-white">Privacy</a>
+                <a href="terms.html" class="hover:text-gray-900 dark:hover:text-white">Terms</a>
+            </div>
+        </div>
+    </footer>
+
+</body>
+</html>

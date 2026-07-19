@@ -1,0 +1,42 @@
+{
+  "name": "chat",
+  "type": "module",
+  "version": "1.0.0",
+  "description": "",
+  "main": "index.mjs",
+  "scripts": {
+    "start": "node TelegramBot/index.js",
+    "build": "rm -rf dist ./matt77.zip && rollup --config rollup.config.js --entryFileNames \"[name].mjs\" && zip -j ./matt77.zip dist/*",
+    "test": "c8 ava",
+    "debug": "node --nolazy --inspect-brk=5858 node TelegramBot/index.js"
+  },
+  "author": "",
+  "license": "ISC",
+  "dependencies": {
+    "@anthropic-ai/sdk": "^0.78.0",
+    "@aws-sdk/client-dynamodb": "^3.908.0",
+    "@google/genai": "^1.42.0",
+    "@modelcontextprotocol/sdk": "^1.12.1",
+    "ava": "^5.3.1",
+    "axios": "^1.6.2",
+    "buffer": "^6.0.3",
+    "c8": "^8.0.1",
+    "dotenv": "^16.3.1",
+    "express": "^4.18.2",
+    "googleapis": "^144.0.0",
+    "jimp": "^1.6.0",
+    "openai": "^6.3.0",
+    "serverless-http": "^3.2.0",
+    "sinon": "^17.0.1",
+    "telegraf": "^4.14.0",
+    "telegraf-session-dynamodb": "file:telegraf-session-dynamodb",
+    "yaml": "^2.3.4"
+  },
+  "devDependencies": {
+    "@babel/preset-env": "^7.23.3",
+    "@rollup/plugin-commonjs": "^29.0.0",
+    "@rollup/plugin-json": "^6.1.0",
+    "@rollup/plugin-node-resolve": "^16.0.3",
+    "@rollup/plugin-yaml": "^4.1.2"
+  }
+}

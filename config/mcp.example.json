@@ -1,0 +1,15 @@
+{
+  "mcpServers": {
+    "example-stdio": {
+      "transport": "stdio",
+      "command": "npx",
+      "args": ["-y", "@example/mcp-server"],
+      "env": { "API_KEY": "${EXAMPLE_API_KEY}" },
+      "defaults": { "workspace": "${WORKSPACE_ID}" }
+    },
+    "example-http": {
+      "transport": "http",
+      "url": "https://mcp.example.com/sse?token=${EXAMPLE_TOKEN}"
+    }
+  }
+}

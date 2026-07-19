@@ -1,0 +1,12 @@
+node_modules
+dist
+.DS_Store
+.env
+
+# Secrets / local config — keep the *.example.* templates tracked instead
+config/*.json
+!config/mcp.example.json
+config/ids.yml
+
+# Local DynamoDB data
+docker/dynamodb/*.db
