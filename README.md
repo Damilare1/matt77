@@ -44,6 +44,17 @@ Telegram ──▶ index.mjs (Lambda handler)  ──┐
 | [MCP/manager.js](MCP/manager.js) | Connects to MCP servers and exposes their tools to the model. |
 | [config/models.yml](config/models.yml) | Registry of available chat/audio/image/video models and their providers. |
 
+### Vendored dependency: `telegraf-session-dynamodb`
+
+The [telegraf-session-dynamodb/](telegraf-session-dynamodb/) directory is a **customized fork** of [nessgor/telegraf-session-dynamodb](https://github.com/nessgor/telegraf-session-dynamodb) (MIT, © Ness Li), vendored via a `file:` dependency. It is not a pristine copy — the local changes are:
+
+- **Overridable param hooks** — `createSession`/`saveSession` were refactored to expose `getCreateSessionParams(key)` and `getSaveSessionParams(key, session)`, so subclasses can control what is persisted. This project's [helpers/Session.js](helpers/Session.js), [ModelControlsSession.js](helpers/ModelControlsSession.js), and [UserControlsSession.js](helpers/UserControlsSession.js) rely on these hooks.
+- **Env-based AWS credentials** — the constructor defaults `accessKeyId`/`secretAccessKey` from `AWS_ACCESS_KEY` / `AWS_SECRET_ACCESS_KEY`.
+- **ES Modules** — converted from CommonJS (`require`/`module.exports`) to `import`/`export` to match this project's `"type": "module"`.
+- Updated `telegraf` peer version, added `dotenv`, and refreshed the tests for the newer Telegraf filter API.
+
+The upstream [LICENSE](telegraf-session-dynamodb/LICENSE) (MIT) is retained.
+
 ## Requirements
 
 - Node.js 18+ (uses native `fetch`, ESM, and top-level `await`)
