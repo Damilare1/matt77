@@ -270,6 +270,12 @@ Any [MCP](https://modelcontextprotocol.io) server listed in `config/mcp.json` is
 npm test   # ava + c8 coverage
 ```
 
+## Website
+
+The static pages in [public/](public/) (docs, privacy policy, terms, and a landing page) are published to GitHub Pages by [.github/workflows/pages.yml](.github/workflows/pages.yml). The workflow deploys the `public/` directory on every push to `main` that touches it, and can also be run manually from the Actions tab.
+
+To enable it once: in the repository, go to **Settings → Pages → Build and deployment → Source** and select **GitHub Actions**. The site is then served at `https://<user>.github.io/<repo>/` (all links are relative, so it works under the project subpath).
+
 ## Support
 
 If Matt77 is useful to you, you can support its development:

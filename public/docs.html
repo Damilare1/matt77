@@ -27,6 +27,7 @@
                 <a href="docs.html" class="text-gray-900 dark:text-white font-medium">Docs</a>
                 <a href="privacy.html" class="text-gray-600 dark:text-gray-400 hover:text-gray-900 dark:hover:text-white">Privacy</a>
                 <a href="terms.html" class="text-gray-600 dark:text-gray-400 hover:text-gray-900 dark:hover:text-white">Terms</a>
+                <a href="https://github.com/Damilare1/matt77" target="_blank" rel="noopener" class="text-gray-600 dark:text-gray-400 hover:text-gray-900 dark:hover:text-white">GitHub</a>
             </div>
         </div>
     </nav>
@@ -39,7 +40,7 @@
         <section class="mt-14">
             <h2 class="text-2xl font-bold" id="getting-started">Getting Started</h2>
             <div class="mt-4 text-sm leading-relaxed text-gray-700 dark:text-gray-300 space-y-3">
-                <p>Matt77 is a Telegram bot powered by OpenAI's latest models. To get started:</p>
+                <p>Matt77 is a Telegram bot powered by leading AI models from OpenAI, Anthropic, and Google. To get started:</p>
                 <ol class="list-decimal list-inside space-y-2 pl-2">
                     <li>Open Telegram and search for <strong>Matt77</strong>, or use the direct link.</li>
                     <li>Send <code class="bg-gray-100 dark:bg-gray-800 px-1.5 py-0.5 rounded text-xs">/start</code> to initialize your session.</li>
@@ -67,19 +68,47 @@
                         </tr>
                         <tr>
                             <td class="px-4 py-3"><code class="text-blue-600 dark:text-blue-400">/stats</code></td>
-                            <td class="px-4 py-3 text-gray-600 dark:text-gray-400">Check your remaining token balance</td>
+                            <td class="px-4 py-3 text-gray-600 dark:text-gray-400">View your monthly token usage and video quota</td>
+                        </tr>
+                        <tr>
+                            <td class="px-4 py-3"><code class="text-blue-600 dark:text-blue-400">/getconfig</code></td>
+                            <td class="px-4 py-3 text-gray-600 dark:text-gray-400">View all your current settings</td>
+                        </tr>
+                        <tr>
+                            <td class="px-4 py-3"><code class="text-blue-600 dark:text-blue-400">/support</code></td>
+                            <td class="px-4 py-3 text-gray-600 dark:text-gray-400">Log a complaint or support ticket</td>
                         </tr>
                         <tr>
                             <td class="px-4 py-3"><code class="text-blue-600 dark:text-blue-400">/clearcontext</code></td>
-                            <td class="px-4 py-3 text-gray-600 dark:text-gray-400">Reset conversation history to start fresh</td>
+                            <td class="px-4 py-3 text-gray-600 dark:text-gray-400">Clear conversation history to start fresh</td>
                         </tr>
                         <tr>
-                            <td class="px-4 py-3"><code class="text-blue-600 dark:text-blue-400">/getgptmodel</code></td>
-                            <td class="px-4 py-3 text-gray-600 dark:text-gray-400">Show which AI model is currently active</td>
+                            <td class="px-4 py-3"><code class="text-blue-600 dark:text-blue-400">/compact</code></td>
+                            <td class="px-4 py-3 text-gray-600 dark:text-gray-400">Summarise and compress conversation history</td>
                         </tr>
                         <tr>
-                            <td class="px-4 py-3"><code class="text-blue-600 dark:text-blue-400">/setgptmodel</code></td>
-                            <td class="px-4 py-3 text-gray-600 dark:text-gray-400">Switch between available AI models</td>
+                            <td class="px-4 py-3"><code class="text-blue-600 dark:text-blue-400">/listmodels</code></td>
+                            <td class="px-4 py-3 text-gray-600 dark:text-gray-400">List all available AI models</td>
+                        </tr>
+                        <tr>
+                            <td class="px-4 py-3"><code class="text-blue-600 dark:text-blue-400">/setgptmodel</code> · <code class="text-blue-600 dark:text-blue-400">/getgptmodel</code></td>
+                            <td class="px-4 py-3 text-gray-600 dark:text-gray-400">Switch or show the current chat model</td>
+                        </tr>
+                        <tr>
+                            <td class="px-4 py-3"><code class="text-blue-600 dark:text-blue-400">/setimgmodel</code> · <code class="text-blue-600 dark:text-blue-400">/getimgmodel</code></td>
+                            <td class="px-4 py-3 text-gray-600 dark:text-gray-400">Switch or show the image generation model</td>
+                        </tr>
+                        <tr>
+                            <td class="px-4 py-3"><code class="text-blue-600 dark:text-blue-400">/setvideomodel</code> · <code class="text-blue-600 dark:text-blue-400">/getvideomodel</code></td>
+                            <td class="px-4 py-3 text-gray-600 dark:text-gray-400">Switch or show the video generation model</td>
+                        </tr>
+                        <tr>
+                            <td class="px-4 py-3"><code class="text-blue-600 dark:text-blue-400">/setaudiomodel</code> · <code class="text-blue-600 dark:text-blue-400">/getaudiomodel</code></td>
+                            <td class="px-4 py-3 text-gray-600 dark:text-gray-400">Switch or show the audio transcription model</td>
+                        </tr>
+                        <tr>
+                            <td class="px-4 py-3"><code class="text-blue-600 dark:text-blue-400">/voice_prompts</code></td>
+                            <td class="px-4 py-3 text-gray-600 dark:text-gray-400">Toggle treating voice notes as AI prompts</td>
                         </tr>
                     </tbody>
                 </table>
@@ -100,7 +129,7 @@
         <section class="mt-14">
             <h2 class="text-2xl font-bold" id="images">Image Generation &amp; Editing</h2>
             <div class="mt-4 text-sm leading-relaxed text-gray-700 dark:text-gray-300 space-y-3">
-                <p>Ask Matt77 to generate images and it will use OpenAI's gpt-image-1 model to create them. Simply describe what you want:</p>
+                <p>Ask Matt77 to generate images and it will use your selected image model — OpenAI GPT Image or Google Imagen — to create them. Simply describe what you want:</p>
                 <div class="bg-gray-50 dark:bg-gray-900 border border-gray-200 dark:border-gray-800 rounded-lg p-4 font-mono text-xs">
                     "Generate an image of a sunset over a mountain lake"
                 </div>
@@ -137,7 +166,7 @@
         <section class="mt-14">
             <h2 class="text-2xl font-bold" id="voice">Voice &amp; Audio</h2>
             <div class="mt-4 text-sm leading-relaxed text-gray-700 dark:text-gray-300 space-y-3">
-                <p>Send a voice message or audio file to Matt77 and it will transcribe the content using OpenAI's Whisper model. You can optionally add a caption to provide context for the transcription.</p>
+                <p>Send a voice message or audio file to Matt77 and it will transcribe the content using your selected transcription model (Whisper, GPT-4o Transcribe, or Gemini). You can optionally add a caption to provide context for the transcription. Use <code class="bg-gray-100 dark:bg-gray-800 px-1.5 py-0.5 rounded text-xs">/voice_prompts</code> to toggle whether voice notes are treated as AI prompts.</p>
                 <p>Supported formats include all common audio formats that Telegram supports (OGG, MP3, WAV, etc.).</p>
             </div>
         </section>
@@ -174,11 +203,13 @@
     <!-- Footer -->
     <footer class="border-t border-gray-200 dark:border-gray-800 bg-gray-50 dark:bg-gray-900">
         <div class="max-w-6xl mx-auto px-6 py-10 flex flex-col sm:flex-row items-center justify-between gap-4 text-sm text-gray-500 dark:text-gray-500">
-            <p>&copy; 2025 Matt77. All rights reserved.</p>
+            <p>&copy; 2026 Matt77. All rights reserved.</p>
             <div class="flex gap-6">
                 <a href="index.html" class="hover:text-gray-900 dark:hover:text-white">Home</a>
                 <a href="privacy.html" class="hover:text-gray-900 dark:hover:text-white">Privacy</a>
                 <a href="terms.html" class="hover:text-gray-900 dark:hover:text-white">Terms</a>
+                <a href="https://github.com/Damilare1/matt77" target="_blank" rel="noopener" class="hover:text-gray-900 dark:hover:text-white">GitHub</a>
+                <a href="https://buymeacoffee.com/laredoyin" target="_blank" rel="noopener" class="hover:text-gray-900 dark:hover:text-white">Buy me a coffee</a>
             </div>
         </div>
     </footer>
