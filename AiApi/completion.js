@@ -164,6 +164,12 @@ const builtInTools = [
       }
     },
   },
+  /*
+   * WIP: Calendar tools are temporarily disabled. The current helper authorizes
+   * against a shared service-account calendar; these will be re-enabled once
+   * per-user OAuth authorization is implemented. See GoogleApi/calendar.js.
+   */
+  /*
   {
     "type": "function",
     "function": {
@@ -284,6 +290,7 @@ const builtInTools = [
       }
     }
   },
+  */
   {
     "type": "function",
     "function": {

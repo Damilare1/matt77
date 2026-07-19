@@ -1,6 +1,6 @@
 # Matt77
 
-Matt77 is a multi-provider AI assistant that runs as a Telegram bot. It supports text chat, voice-note transcription, image generation and editing, and video generation across **OpenAI**, **Anthropic**, and **Google** models — all switchable at runtime per user. It ships with function-calling tools (Google Calendar, Brave web search, file output) and can be extended with any [Model Context Protocol (MCP)](https://modelcontextprotocol.io) server.
+Matt77 is a multi-provider AI assistant that runs as a Telegram bot. It supports text chat, voice-note transcription, image generation and editing, and video generation across **OpenAI**, **Anthropic**, and **Google** models — all switchable at runtime per user. It ships with function-calling tools (Brave web search, file output, image/video generation) and can be extended with any [Model Context Protocol (MCP)](https://modelcontextprotocol.io) server. (Google Calendar integration is a work in progress.)
 
 The bot can run as a long-polling process locally or be deployed to AWS Lambda behind an SQS queue for a fully serverless setup, using DynamoDB for per-user session storage.
 
@@ -12,7 +12,7 @@ The bot can run as a long-polling process locally or be deployed to AWS Lambda b
 - **Voice transcription** — send a voice note or audio file; it's transcribed (Whisper / GPT-4o Transcribe / Gemini) and optionally treated as a prompt.
 - **Image generation & editing** — GPT Image, ChatGPT Image, and Google Imagen / Gemini image models.
 - **Video generation** — text-to-video and image-to-video via OpenAI Sora (and Google Veo, config-gated). Long-running jobs are tracked by request ID.
-- **Function calling** — write code to files, generate/edit images, generate video, manage Google Calendar events, and search the web with Brave.
+- **Function calling** — write code to files, generate/edit images, generate video, and search the web with Brave. _(Google Calendar management is **work in progress** — temporarily disabled pending per-user OAuth.)_
 - **MCP support** — connect any MCP server (stdio or streamable HTTP) and its tools become available to the model automatically.
 - **Per-user usage limits** — monthly token allowances and video quotas, with `/stats` reporting.
 - **Persistent sessions** — conversation history, model preferences, and usage stored in DynamoDB.
@@ -237,8 +237,9 @@ The model can call these functions during a conversation (defined in [AiApi/comp
 - `write_code_to_file` — writes generated code to a file and sends it to the user.
 - `generate_image` / `edit_image` — image generation and editing.
 - `generate_video` / `generate_video_from_image` / `get_video_status` — video generation and status polling.
-- `create_calendar_event` / `list_calendar_events` / `update_calendar_event` / `delete_calendar_event` — Google Calendar management.
 - `brave_web_search` — up-to-date web search (requires `BRAVE_API_KEY`).
+
+> **⚠️ Work in progress:** Google Calendar management (`create_calendar_event` / `list_calendar_events` / `update_calendar_event` / `delete_calendar_event`) is currently **disabled**. The existing helper in [GoogleApi/calendar.js](GoogleApi/calendar.js) authorizes against a shared service-account calendar; the tools are commented out in [AiApi/completion.js](AiApi/completion.js) until per-user OAuth authorization is implemented so each user can grant access to their own calendar.
 
 ## MCP Servers
 
