@@ -28,10 +28,14 @@ export const complete = async (context, model, user_id, tools, systemPrompt) => 
     prompt_cache_key: user_id
   };
 
-  if (model === "gpt-5.1") {
-    requestObj['max_completion_tokens'] = MAX_TOKEN;
-  } else {
+  // Models after GPT-4 (gpt-4o, gpt-4.5, gpt-5.x, o-series, …) use
+  // `max_completion_tokens`; only the legacy gpt-4 / gpt-3.5 families still
+  // take the deprecated `max_tokens`.
+  const isLegacyMaxTokens = /^(gpt-3\.5|gpt-4$|gpt-4-)/.test(model);
+  if (isLegacyMaxTokens) {
     requestObj['max_tokens'] = MAX_TOKEN;
+  } else {
+    requestObj['max_completion_tokens'] = MAX_TOKEN;
   }
 
   console.log(JSON.stringify(requestObj));
