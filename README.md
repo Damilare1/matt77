@@ -270,6 +270,14 @@ Any [MCP](https://modelcontextprotocol.io) server listed in `config/mcp.json` is
 npm test   # ava + c8 coverage
 ```
 
+## Support
+
+If Matt77 is useful to you, you can support its development:
+
+<a href="https://buymeacoffee.com/laredoyin"><img src="https://img.shields.io/badge/Buy%20Me%20a%20Coffee-support-FFDD00?logo=buymeacoffee&logoColor=black" alt="Buy Me a Coffee"></a>
+
+[buymeacoffee.com/laredoyin](https://buymeacoffee.com/laredoyin)
+
 ## License
 
 Licensed under the [Apache License 2.0](LICENSE).
