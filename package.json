@@ -1,8 +1,8 @@
 {
-  "name": "chat",
+  "name": "matt77",
   "type": "module",
   "version": "1.0.0",
-  "description": "",
+  "description": "Multi-provider AI assistant Telegram bot (OpenAI, Anthropic, Google) with chat, voice transcription, image/video generation, function-calling tools, and MCP support.",
   "main": "index.mjs",
   "scripts": {
     "start": "node TelegramBot/index.js",
@@ -10,8 +10,31 @@
     "test": "c8 ava",
     "debug": "node --nolazy --inspect-brk=5858 node TelegramBot/index.js"
   },
-  "author": "",
-  "license": "ISC",
+  "keywords": [
+    "telegram",
+    "telegram-bot",
+    "telegraf",
+    "ai",
+    "chatbot",
+    "openai",
+    "anthropic",
+    "claude",
+    "gemini",
+    "mcp",
+    "serverless",
+    "aws-lambda",
+    "dynamodb"
+  ],
+  "author": "Damilare Adedoyin <damilare182@gmail.com>",
+  "license": "Apache-2.0",
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/Damilare1/matt77.git"
+  },
+  "homepage": "https://github.com/Damilare1/matt77#readme",
+  "bugs": {
+    "url": "https://github.com/Damilare1/matt77/issues"
+  },
   "dependencies": {
     "@anthropic-ai/sdk": "^0.78.0",
     "@aws-sdk/client-dynamodb": "^3.908.0",

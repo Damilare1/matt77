@@ -1,0 +1,41 @@
+{
+  "name": "matt77-inbound",
+  "type": "module",
+  "version": "1.0.0",
+  "description": "Matt77 inbound Lambda — authorizes Telegram senders against DynamoDB and forwards authorized updates (messages and callback queries) onto the outbound SQS FIFO queue.",
+  "main": "index.mjs",
+  "scripts": {
+    "build": "rm -rf dist ./matt77-inbound.zip && rollup --config rollup.config.js --entryFileNames \"[name].mjs\" && zip -j ./matt77-inbound.zip dist/*",
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "keywords": [
+    "matt77",
+    "telegram",
+    "telegraf",
+    "aws-lambda",
+    "sqs",
+    "dynamodb",
+    "authorization"
+  ],
+  "author": "Damilare Adedoyin <damilare182@gmail.com>",
+  "license": "Apache-2.0",
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/Damilare1/matt77.git",
+    "directory": "SupportFunctions/Matt77-inbound"
+  },
+  "dependencies": {
+    "@aws-sdk/client-dynamodb": "^3.806.0",
+    "@aws-sdk/client-sqs": "^3.806.0",
+    "aws-lambda": "^1.0.7",
+    "telegraf": "^4.16.3",
+    "uuid": "^11.1.0"
+  },
+  "devDependencies": {
+    "@babel/preset-env": "^7.23.3",
+    "@rollup/plugin-commonjs": "^29.0.0",
+    "@rollup/plugin-json": "^6.1.0",
+    "@rollup/plugin-node-resolve": "^16.0.3",
+    "@rollup/plugin-yaml": "^4.1.2"
+  }
+}

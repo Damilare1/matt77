@@ -31,6 +31,10 @@ Telegram ──▶ index.mjs (Lambda handler)  ──┐
                      ├─ GoogleApi/        calendar
                      ├─ DynamoDb/         session & support-ticket storage
                      └─ config/           config.js, models.yml, ids.yml, mcp.json
+
+SupportFunctions/     standalone Lambdas that front the bot in serverless mode
+ ├─ Matt77-inbound/   Telegram update → auth check → outbound SQS
+ └─ WebhookListener/  async AI-provider callbacks (e.g. Sora video) → outbound SQS
 ```
 
 | Path | Responsibility |
@@ -43,6 +47,8 @@ Telegram ──▶ index.mjs (Lambda handler)  ──┐
 | [AiApi/providers/](AiApi/providers/) | Provider adapters that normalize to a common message/tool format. |
 | [MCP/manager.js](MCP/manager.js) | Connects to MCP servers and exposes their tools to the model. |
 | [config/models.yml](config/models.yml) | Registry of available chat/audio/image/video models and their providers. |
+| [SupportFunctions/Matt77-inbound/index.mjs](SupportFunctions/Matt77-inbound/index.mjs) | Inbound Lambda — authorizes the sender against `telegraf-user-dynamodb`, then forwards authorized Telegram updates (messages and callback queries) to the outbound SQS FIFO queue. |
+| [SupportFunctions/WebhookListener/index.mjs](SupportFunctions/WebhookListener/index.mjs) | Async-callback Lambda — verifies an AI provider's webhook signature (e.g. OpenAI Sora video completion) and enqueues the event to the same outbound queue. |
 
 ### Vendored dependency: `telegraf-session-dynamodb`
 
@@ -54,6 +60,59 @@ The [telegraf-session-dynamodb/](telegraf-session-dynamodb/) directory is a **cu
 - Updated `telegraf` peer version, added `dotenv`, and refreshed the tests for the newer Telegraf filter API.
 
 The upstream [LICENSE](telegraf-session-dynamodb/LICENSE) (MIT) is retained.
+
+## Deployment Architecture (Serverless)
+
+In serverless mode the bot never faces Telegram directly. Two thin **support Lambdas** ([SupportFunctions/](SupportFunctions/)) sit in front of it and decouple request intake from processing through an SQS **FIFO** queue, so the main bot always consumes work from one place — whether it originated from a user message or an async provider callback.
+
+```mermaid
+flowchart TD
+    TG["Telegram<br/>(webhook + Bot API)"]
+    AIW["AI provider<br/>(async webhook,<br/>e.g. OpenAI Sora)"]
+
+    subgraph AWS["AWS"]
+        AGW1["API Gateway"]
+        INQ(["Inbound SQS queue"])
+        IN["Inbound Lambda<br/>SupportFunctions/Matt77-inbound"]
+        AGW2["API Gateway"]
+        WL["WebhookListener Lambda<br/>SupportFunctions/WebhookListener"]
+        Q(["Outbound SQS FIFO queue<br/>OutboundQueueName<br/>MessageGroupId = chat id"])
+        BOT["Matt77 Bot Lambda<br/>index.mjs → Telegraf"]
+
+        subgraph DDB["DynamoDB"]
+            T1[("telegraf-session-dynamodb<br/>chat sessions")]
+            T2[("telegraf-user-dynamodb<br/>user controls &amp; auth")]
+            T3[("OpenAI_WIP_TABLE<br/>request_id → chat id")]
+            T4[("matt77-support-tickets")]
+        end
+    end
+
+    AI["AI provider APIs<br/>OpenAI · Anthropic · Google · Brave · MCP"]
+
+    TG -->|"update"| AGW1 --> INQ --> IN
+    IN <-->|"authorize sender"| T2
+    IN -.->|"unauthorized reply"| TG
+    IN -->|"enqueue authorized update"| Q
+    AIW -->|"job completed"| AGW2 --> WL
+    WL -->|"verify signature<br/>+ enqueue event"| Q
+    Q -->|"event source mapping"| BOT
+
+    BOT <-->|"read / write session"| T1
+    BOT <-->|"read / write controls"| T2
+    BOT -->|"on async job:<br/>save request_id → chat"| T3
+    BOT -->|"lookup chat on completion"| T3
+    BOT -->|"/support tickets"| T4
+    BOT <-->|"chat, transcription,<br/>image / video gen, search"| AI
+    BOT -->|"replies, photos, videos, docs"| TG
+```
+
+**Request path (user message).** Telegram delivers each update (via API Gateway) onto an **inbound SQS queue** that triggers the **Inbound Lambda** ([SupportFunctions/Matt77-inbound](SupportFunctions/Matt77-inbound/)). The Lambda authorizes the sender against `telegraf-user-dynamodb` (keyed `chatId:userId`): unknown users get a provisional unauthenticated record plus a "not authorized" reply, and only authorized updates — regular messages and inline-button **callback queries** alike — are forwarded (the full update JSON) onto the **outbound FIFO queue**, keyed by `MessageGroupId = chat id` (so each chat is processed in order) with a UUID dedup id. The **Matt77 Bot Lambda** ([index.mjs](index.mjs)) is triggered by that queue and hands each record to Telegraf via `bot.handleUpdate`.
+
+**Async callback path (e.g. Sora video).** When a user requests an asynchronous job such as video generation, the bot calls the provider and immediately stores a `request_id → chat id` mapping in the **WIP table** (`OpenAI_WIP_TABLE`), then replies with the request id. The job runs asynchronously; when the provider finishes it calls the configured webhook, which hits the **WebhookListener Lambda**. That Lambda verifies the provider's webhook signature (currently OpenAI, via `client.webhooks.unwrap`) and pushes the event onto the **same** outbound queue, so the bot Lambda can resume the job — looking up the originating chat from the WIP table — and deliver the result.
+
+Because both entry points feed one queue, the bot Lambda has a single, uniform trigger and DynamoDB holds all state (sessions, user controls, in-flight jobs, support tickets) between invocations.
+
+> Each support Lambda is an independent package with its own `package.json` and Rollup build — `npm run build` in the function directory produces a deployable zip. Set `OutboundQueueName` and `AWS_REGION` in both; the Inbound function also needs `BOT_TOKEN` (to send the unauthorized reply), and the listener needs `OPENAI_API_KEY` and `OPENAI_WEBHOOK_SECRET`.
 
 ## Requirements
 
@@ -118,8 +177,9 @@ The bot expects these tables (names are referenced in [TelegramBot/index.js](Tel
 | `telegraf-session-dynamodb` | Per-user model/session state |
 | `telegraf-user-dynamodb` | Per-user control state |
 | `matt77-support-tickets` | Support tickets (`/support`) — override with `SUPPORT_TABLE` |
+| `OpenAI_WIP_TABLE` (env var) | In-flight async jobs — maps a provider `request_id` to the originating chat so async video results can be routed back (see [Deployment Architecture](#deployment-architecture-serverless)) |
 
-For local development you can run DynamoDB Local via Docker; a seeded database file is included at [docker/dynamodb/](docker/dynamodb/).
+For local development you can run DynamoDB Local via Docker.
 
 ## Running
 
@@ -141,7 +201,15 @@ Set `IS_SERVERLESS` and `FUNCTION_URL`, then build the bundle:
 npm run build   # produces dist/*.mjs and matt77.zip
 ```
 
-Upload `matt77.zip` to Lambda. The handler in [index.mjs](index.mjs) reads Telegram updates from SQS records, so point a Telegram webhook → API Gateway/SQS → Lambda. Config YAML/JSON files are inlined into the bundle at build time by Rollup.
+Upload `matt77.zip` to Lambda. The handler in [index.mjs](index.mjs) reads updates from SQS records. Config YAML/JSON files are inlined into the bundle at build time by Rollup.
+
+This main Lambda is fronted by the two support Lambdas in [SupportFunctions/](SupportFunctions/), which are deployed independently — each has its own `package.json` and Rollup build (`npm run build` in the function directory emits a deployable zip). Wire them up as:
+
+1. **Telegram webhook → inbound SQS → Inbound Lambda → outbound SQS** — deliver Telegram updates (via API Gateway) onto an inbound SQS queue that triggers [SupportFunctions/Matt77-inbound](SupportFunctions/Matt77-inbound/); it authorizes the sender against `telegraf-user-dynamodb` and enqueues authorized updates onto the FIFO queue named by `OutboundQueueName`.
+2. **AI provider webhook → WebhookListener Lambda → outbound SQS** — register [SupportFunctions/WebhookListener](SupportFunctions/WebhookListener/)'s API Gateway URL as the async webhook endpoint for your AI provider (currently OpenAI for Sora video events); it verifies the signature and enqueues onto the same queue.
+3. **Outbound SQS → Matt77 Bot Lambda** — add the FIFO queue as an event source for the main function.
+
+See [Deployment Architecture](#deployment-architecture-serverless) for the full diagram and data flow.
 
 ## Bot Commands
 
@@ -204,4 +272,6 @@ npm test   # ava + c8 coverage
 
 ## License
 
-ISC
+Licensed under the [Apache License 2.0](LICENSE).
+
+The bundled [telegraf-session-dynamodb/](telegraf-session-dynamodb/) directory remains under its original [MIT license](telegraf-session-dynamodb/LICENSE) (© Ness Li) — see [Vendored dependency](#vendored-dependency-telegraf-session-dynamodb).

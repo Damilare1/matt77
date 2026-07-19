@@ -1,0 +1,30 @@
+{
+  "name": "matt77-webhook-listener",
+  "version": "1.0.0",
+  "description": "Matt77 async-callback Lambda — verifies AI provider webhooks (e.g. OpenAI Sora video completion) and enqueues the events onto the outbound SQS FIFO queue.",
+  "main": "index.mjs",
+  "type": "module",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "keywords": [
+    "matt77",
+    "ai",
+    "openai",
+    "sora",
+    "aws-lambda",
+    "sqs",
+    "webhook"
+  ],
+  "author": "Damilare Adedoyin <damilare182@gmail.com>",
+  "license": "Apache-2.0",
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/Damilare1/matt77.git",
+    "directory": "SupportFunctions/WebhookListener"
+  },
+  "dependencies": {
+    "@aws-sdk/client-sqs": "^3.908.0",
+    "openai": "^6.3.0"
+  }
+}
